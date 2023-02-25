@@ -1,7 +1,9 @@
 /* Realizar una función que nos permita realizar las 4 operaciones aritméticas, es decir,
 que nos permita sumar, restar, dividir y multiplicar. La función debe recibir 3 parámetros,
 dos de ellos deben ser los valores (a y b) y uno el nombre de la operación (en minúsculas).
-Si el parámetro de la operación no es válido que mande un error personalizado a la consola. */
+Si el parámetro de la operación no es válido que mande un error personalizado a la consola
+
+edicion master jmca */
 
 do { opcion = (prompt("Bienvenido, por favor seleccione una de las siguientes opciones: \n 1- Suma \n 2- Resta \n 3- Division \n 4- Multiplicacion \n -----------------------------------------  \n 0- Finalizar"))
 switch (opcion) {
