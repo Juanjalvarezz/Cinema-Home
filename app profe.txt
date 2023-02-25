@@ -39,6 +39,11 @@
     border: 2px solid white;
   }
 
+.prueba {
+background-color: white;
+font-family: Arial;
+}
+
   .container{
     background-color: #e0d8b0;
     position:fixed;
