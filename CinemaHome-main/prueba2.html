@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Buscador de películas - The Movie DB</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Buscador de películas</h1>
+  <div class="bt"> 
+    <button type="button" class="btn btn-dark" onclick="cambiarModo()">Oscuro / Claro</button>
+  </div> 
+
+  <form id="search-form">
+    <input type="text" id="query" placeholder="Buscar películas...">
+    <button type="submit">Buscar</button>
+  </form>
+
+  <div id="movies">
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="script.js"></script>
+
+
+
+
+  <!--Modo claro/obscuro-->
+<script type="text/javascript"> 
+  function cambiarModo() { 
+    var cuerpoweb = document.body; 
+    cuerpoweb.classList.toggle("oscuro"); 
+  } 
+</script>
+</body>
+</html>

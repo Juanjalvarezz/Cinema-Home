@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Películas populares - The Movie DB</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Películas populares</h1>
+<div class="bt"> 
+  <button type="button" class="btn btn-dark" onclick="cambiarModo()">Oscuro / Claro</button>
+</div> 
+
+  <div id="movies">
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $.ajax({
+      url: "https://api.themoviedb.org/3/movie/popular?api_key=4c7644be5749ff57cb3cd3e80f76d300&language=es-ES&page=1",
+      success: function(data) {
+        for (let i=0; i<data.results.length; i++) {
+          let movie = data.results[i];
+          $("#movies").append(
+            `<div class="movie">
+              <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" />
+              <h2>${movie.title}</h2>
+            </div>`
+          );
+        }
+      }
+    });
+  </script>
+
+
+<!--Modo claro/obscuro-->
+<script type="text/javascript"> 
+  function cambiarModo() { 
+    var cuerpoweb = document.body; 
+    cuerpoweb.classList.toggle("oscuro"); 
+  } 
+</script>
+</body>
+</html>
