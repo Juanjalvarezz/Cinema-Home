@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Películas populares - The Movie DB</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="scrollreveal.js"></script>
+  
+</head>
+<body>
+
+<!-- Esta parte es la cabecera/header -->
+<header>
+  <div class="wrapper">
+      <div class="logo">
+          <a href="#"><img src="">LOGO</a>
+      </div>
+      <div class="navbar">
+          <div class="close-nav"><button>×</button></div>
+          <nav>
+              <ul>
+                  <li><a href="index.html">Inicio</a></li>
+                  <li><a href="#movies">Peliculas Populares</a></li>
+                  <li><form id="search-form" class="search-bar">
+                    <input type="text" id="query" class="search-input" placeholder="Buscar películas...">
+                    <button name="buscador" type="submit" class="boton">Buscar</button>
+                  </form></li>
+              </ul>
+          </nav>
+      </div>
+      <div class="menu-bar">
+          <button><i></i></button>
+      </div>
+  </div>
+</header>
+
+<!--Peliculas-->
+  <h1>Cartelera</h1>
+  <div class="bt"> 
+    <button type="button" class="btn-dark boton" onclick="cambiarModo()">Oscuro / Claro</button>
+  </div> 
+
+  <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+  <div id="contenedor_carga">
+    <div id="carga"></div>
+  </div>
+
+
+  <div id="movies">
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $.ajax({
+      url: "https://api.themoviedb.org/3/movie/popular?api_key=4c7644be5749ff57cb3cd3e80f76d300&language=es-ES&page=1",
+      success: function(data) {
+        for (let i=0; i<data.results.length; i++) {
+          let movie = data.results[i];
+          $("#movies").append(
+            `<div class="movie">
+              <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" />
+              <h2>${movie.title}</h2>
+            </div>`
+          );
+        }
+      }
+    });
+  </script>
+
+<!--Buscador-->
+<div id="movies">
+</div>
+
+<!--Footer-->
+<footer class="pie-pagina">
+  <div class="grupo-1">
+      <div class="box">
+          <figure>
+                  <img src="logotipo-sleedw.svg" alt="Logo de SLee Dw">
+          </figure>
+      </div>
+      <div class="box">
+          <h2>SOBRE NOSOTROS</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
+      </div>
+      
+  </div>
+  <div class="grupo-2">
+      <small>&copy; 2021 <b>SLee Dw</b> - Todos los Derechos Reservados.</small>
+  </div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!--Modo claro/obscuro-->
+<script type="text/javascript"> 
+  function cambiarModo() { 
+    var cuerpoweb = document.body; 
+    cuerpoweb.classList.toggle("oscuro"); 
+  } 
+</script>
+<script src="script.js"></script>
+</body>
+</html>
