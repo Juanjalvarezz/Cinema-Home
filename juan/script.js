@@ -2,92 +2,6 @@ const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = "4c7644be5749ff57cb3cd3e80f76d300";
 let currentPage = 1;
 
-// Initialize the slider
-var swiper = new Swiper('.swiper-container-slider', {
-  slidesPerView:1,
-  spaceBetween :30,
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-});
-
-// Fetch the popular movies from the API
-fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en&page=1`)
-.then(response => response.json())
-.then(data => {
-// Loop through the first 5 movies and create the slides
-for (let i = 0; i < 5; i++) {
-  const movie = data.results[i];
-  const slide = document.createElement('div');
-  slide.classList.add('swiper-slide-slider');
-  slide.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`;
-  slide.innerHTML = `
-    <div class="movie-image-slider"<img src="https://image.tmdb.org/t/p/w185/${movie.poster_path}"/>
-    ></div>
-    <div class="movie-info-slider">
-      <h2 class="movie-title-slider">${movie.title}</h2>
-      
-      <div class="movie-rating-slider">
-        <span class="rating-number">${movie.vote_average}</span>
-      </div>
-      <p class="movie-description-slider">${movie.overview}</p>
-    </div>
-  `;
-  // Add the slide to the slider
-  console.log(movie.title)
-  swiper.appendSlide(slide);
-
-}
-})
-
-
-.catch(error => console.error(error));
-
-// EJEMPLO CON  SLICK
-  // Initialize the slider
-  $('.slider-slider').slick({
-    arrows: true,
-    dots: false,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  });
-
-  // Fetch the top rated movies from the API
-  fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en&page=1`)
-    .then(response => response.json())
-    .then(data => {
-      // Loop through the first 5 movies and create the slides
-      for (let i = 0; i < 5; i++) {
-        const movie = data.results[i];
-        const slide = document.createElement('div');
-        slide.classList.add('slick-slide');
-        slide.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`;
-        slide.innerHTML = `
-          <div class="movie-info-slider">
-            <h2 class="movie-title-slider">${movie.title}</h2>
-            <div class="movie-rating-slider">
-              <span class="rating-number">${movie.vote_average}</span>
-            </div>
-            <p class="movie-description-slider">${movie.overview}</p>
-          </div>  
-        `;
-        // Add the slide to the slider
-
-        $('.slider-slider').slick('slickAdd', slide);
-      }
-    })
-    .catch(error => console.error(error));
-
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
   const debouncedCargasPelis = debounce(cargasPelis, 2000);
 
@@ -104,31 +18,103 @@ document.addEventListener("DOMContentLoaded", function() {
     currentPage++;
     debouncedCargasPelis(currentPage);
   });
+
+  document.querySelector("#page-input").addEventListener("change", function() {
+    // Obtener el valor del input como un número
+    let page = Number(this.value);
+    // Validar que el valor sea mayor que cero
+    if (page > 0) {
+      // Actualizar la variable currentPage y cargar las películas de esa página
+      currentPage = page;
+      debouncedCargasPelis(currentPage);
+    }
+  });
+
+  document.querySelector("#page-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    let pageNumber = parseInt(document.querySelector("#page-input").value);
+    if (pageNumber >= 1) {
+      currentPage = pageNumber;
+      debouncedCargasPelis(currentPage);
+    }
+  });
 });
 
 function cargasPelis(page) {
   fetch(`${API_URL}/movie/popular?api_key=${API_KEY}&language=es-ES&page=${page}`)
-  .then(response => response.json())
-  .then(data => {
-    let moviesContainer = document.querySelector("#movies");
-    moviesContainer.innerHTML = ""; // Clear previous movies from container
-    for (let i = 0; i < data.results.length; i++) {
-      let movie = data.results[i];
-      let movieDiv = document.createElement("div");
-      movieDiv.classList.add("movie");
-      let img = document.createElement("img");
-      img.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-      let h2 = document.createElement("h2");
-      h2.textContent = movie.title;
-      movieDiv.appendChild(img);
-      movieDiv.appendChild(h2);
-      moviesContainer.appendChild(movieDiv);
-    }
-  })
-  .catch(error => console.log(error));
+    .then(response => response.json())
+    .then(data => {
+      let moviesContainer = document.querySelector("#movies");
+      moviesContainer.innerHTML = ""; // Clear previous movies from container
+      for (let i = 0; i < data.results.length; i++) {
+        let movie = data.results[i];
+        let movieDiv = document.createElement("div");
+        movieDiv.classList.add("movie");
+        let img = document.createElement("img");
+        img.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+        let h2 = document.createElement("h2");
+        h2.textContent = movie.title;
+        h2.style.pointerEvents = "none"; // Disable pointer events on the h2 element
+        movieDiv.appendChild(img);
+        movieDiv.appendChild(h2);
+        moviesContainer.appendChild(movieDiv);
+
+        // Agregar evento click al elemento img de la película
+        img.addEventListener("click", () => {
+          // Crear elemento overlay
+          let overlay = document.createElement("div");
+          overlay.classList.add("overlay");
+          overlay.style.zIndex = "1"; // Establecer z-index del overlay
+          overlay.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500/${movie.backdrop_path})`; // Establecer imagen de fondo del overlay
+          // Crear título de la película
+          let h3 = document.createElement("h3");
+          h3.textContent = movie.title;
+          overlay.appendChild(h3);
+          // Crear botón para salir del overlay
+          let closeButton = document.createElement("button");
+          closeButton.textContent = "X";
+          closeButton.style.position = "absolute";
+          closeButton.style.top = "10px";
+          closeButton.style.right = "10px";
+          closeButton.addEventListener("click", () => {
+            overlay.remove();
+          });
+          overlay.appendChild(closeButton);
+          // Obtener descripción de la película
+          fetch(`${API_URL}/movie/${movie.id}?api_key=${API_KEY}&language=es-ES`)
+            .then(response => response.json())
+            .then(data => {
+              // Crear elemento para la descripción de la película
+              let p = document.createElement("p");
+              p.textContent = data.overview;
+              overlay.appendChild(p);
+            })
+            .catch(error => console.log(error));
+          // Establecer estilo del overlay
+          overlay.style.display = "flex";
+          overlay.style.flexDirection = "column";
+          overlay.style.justifyContent = "center";
+          overlay.style.alignItems = "center";
+          // Agregar overlay al contenedor de películas
+          document.body.appendChild(overlay);
+        });
+      }
+
+      // Actualizar número de página actual
+      let pageNumber = document.querySelector("#page-number");
+      pageNumber.textContent = ` ${page}`;
+      pageNumber.style.display = "inline-block";
+    })
+    .catch(error => console.log(error));
+}
+
+function ocultarElementos() {
+  $("h1").hide();
+  $("#pagination").hide();
 }
 
 function buscarPelisDebounced(query) {
+  ocultarElementos();
   fetch(`${API_URL}/search/movie?api_key=${API_KEY}&language=es-ES&query=${query}`)
     .then(response => response.json())
     .then(data => {
@@ -151,10 +137,14 @@ function buscarPelisDebounced(query) {
       html += `
         </ul>
       `;
+      if (data.results.length === 0) {
+        html = "<p>No se encontraron películas con ese nombre</p>";
+      }
       $("#movies").empty().append(html);
     })
     .catch(error => console.log(error));
 }
+
 
 const buscarPelis = debounce(buscarPelisDebounced, 2000);
 
