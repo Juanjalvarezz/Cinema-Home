@@ -5,7 +5,10 @@
   <title>Películas populares - The Movie DB</title>
   <link rel="stylesheet" href="styles.css">
   <script src="scrollreveal.js"></script>
-  
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"/>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+
 </head>
 <body>
 
@@ -13,7 +16,7 @@
 <header>
   <div class="wrapper">
       <div class="logo">
-          <a href="#"><img src="">LOGO</a>
+          <a href="#"><img src="logo.png.png" alt="LOGO "></a>
       </div>
       <div class="navbar">
           <div class="close-nav"><button>×</button></div>
@@ -34,6 +37,26 @@
   </div>
 </header>
 
+
+<!--Banner de arriba, no funciona con slick del todo
+<div class="slider-slider">
+</div
+-->
+
+<!--Banner de arriba con SWIPER-->
+<div class="swiper-container-slider">
+  <!-- Crear la envoltura de los elementos del slider -->
+  <div class="swiper-wrapper">
+    <!-- The slides will be added dynamically here -->
+  </div>
+  <!-- Añadir la paginación -->
+  <div class="swiper-pagination"></div>
+  <!-- Añadir los botones de navegación -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>
+
+
 <!--Peliculas-->
   <h1>Cartelera</h1>
   <div class="bt"> 
@@ -46,7 +69,6 @@
     <div id="carga"></div>
   </div>
 
-
  <!--Buscador y Peliculas-->
   <div id="movies">
   </div>
@@ -55,6 +77,8 @@
   <button id="prev-page" class="pagination">Prev</button>
   <button id="next-page" class="pagination">Next</button>
 </div>
+
+
 
 <!--Footer-->
 <footer class="pie-pagina">
@@ -67,12 +91,12 @@
       <div class="box">
           <h2>SOBRE NOSOTROS</h2>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
+          <p>Lorem ipsum dolor sit amet consectetur a dipisicing elit. Odio, ipsa?</p>
       </div>
       
   </div>
   <div class="grupo-2">
-      <small>&copy; 2021 <b>SLee Dw</b> - Todos los Derechos Reservados.</small>
+      <small>&copy; 2023 <b>Cinema Home</b> - Todos los Derechos Reservados.</small>
   </div>
 </footer>
 
@@ -84,6 +108,12 @@
     cuerpoweb.classList.toggle("oscuro"); 
   } 
 </script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>

@@ -2,6 +2,92 @@ const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = "4c7644be5749ff57cb3cd3e80f76d300";
 let currentPage = 1;
 
+// Initialize the slider
+var swiper = new Swiper('.swiper-container-slider', {
+  slidesPerView:1,
+  spaceBetween :30,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+});
+
+// Fetch the popular movies from the API
+fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en&page=1`)
+.then(response => response.json())
+.then(data => {
+// Loop through the first 5 movies and create the slides
+for (let i = 0; i < 5; i++) {
+  const movie = data.results[i];
+  const slide = document.createElement('div');
+  slide.classList.add('swiper-slide-slider');
+  slide.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`;
+  slide.innerHTML = `
+    <div class="movie-image-slider"<img src="https://image.tmdb.org/t/p/w185/${movie.poster_path}"/>
+    ></div>
+    <div class="movie-info-slider">
+      <h2 class="movie-title-slider">${movie.title}</h2>
+      
+      <div class="movie-rating-slider">
+        <span class="rating-number">${movie.vote_average}</span>
+      </div>
+      <p class="movie-description-slider">${movie.overview}</p>
+    </div>
+  `;
+  // Add the slide to the slider
+  console.log(movie.title)
+  swiper.appendSlide(slide);
+
+}
+})
+
+
+.catch(error => console.error(error));
+
+// EJEMPLO CON  SLICK
+  // Initialize the slider
+  $('.slider-slider').slick({
+    arrows: true,
+    dots: false,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  });
+
+  // Fetch the top rated movies from the API
+  fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en&page=1`)
+    .then(response => response.json())
+    .then(data => {
+      // Loop through the first 5 movies and create the slides
+      for (let i = 0; i < 5; i++) {
+        const movie = data.results[i];
+        const slide = document.createElement('div');
+        slide.classList.add('slick-slide');
+        slide.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`;
+        slide.innerHTML = `
+          <div class="movie-info-slider">
+            <h2 class="movie-title-slider">${movie.title}</h2>
+            <div class="movie-rating-slider">
+              <span class="rating-number">${movie.vote_average}</span>
+            </div>
+            <p class="movie-description-slider">${movie.overview}</p>
+          </div>  
+        `;
+        // Add the slide to the slider
+
+        $('.slider-slider').slick('slickAdd', slide);
+      }
+    })
+    .catch(error => console.error(error));
+
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
   const debouncedCargasPelis = debounce(cargasPelis, 2000);
 
@@ -91,7 +177,7 @@ function debounce(func, timeout = 2000) {
 }
 
 function detallesPeliDebounced(IDPeli) {
-  fetch(`${API_URL}/movie/${IDPeli}?api_key=${API_KEY}&language=es-ES&append_to_response=videos,credits`)
+  fetch(`${API_URL}/movie/${IDPeli}?api_key=${API_KEY}&language=es-ES&append_to_response=videos,credits,images`)
     .then(response => response.json())
     .then(data => {
       let html = `
@@ -102,10 +188,27 @@ function detallesPeliDebounced(IDPeli) {
           <p><b>Género:</b> ${data.genres.map(g => g.name).join(", ")}</p>
           <p><b>Fecha de lanzamiento:</b> ${data.release_date}</p>
           <p><b>Puntuación:</b> ${data.vote_average}</p>
-          <h2>Actores principales</h2>
+          <h1>Reparto</h1>
           <div class="cast">
       `;
       let cast = data.credits.cast.slice(0, 5);
+      let director = data.credits.crew.find(person => person.job === "Director");
+      if (director) {
+        html += `
+        <div class="crew">
+        <h2>Directores</h2>
+        <div class="director">
+          <img src="https://image.tmdb.org/t/p/w185/${director.profile_path}" />
+          <p>${director.name}</p>
+        </div>
+      </div>
+        `;
+      }
+      html += `
+          </div>
+          <h2>Actores principales</h2>
+          <div class="cast">
+      `;
       cast.forEach(actor => {
         html += `
           <div class="actor">
@@ -114,15 +217,6 @@ function detallesPeliDebounced(IDPeli) {
           </div>
         `;
       });
-      let director = data.credits.crew.find(person => person.job === "Director");
-      if (director) {
-        html += `
-          <div class="actor">
-            <img src="https://image.tmdb.org/t/p/w185/${director.profile_path}" />
-            <p>${director.name} (Director)</p>
-          </div>
-        `;
-      }
       html += `
           </div>
           <h2>Videos</h2>
