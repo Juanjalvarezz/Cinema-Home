@@ -3,7 +3,7 @@ const API_KEY = "4c7644be5749ff57cb3cd3e80f76d300";
 let currentPage = 1;
 
 document.addEventListener("DOMContentLoaded", function() {
-  const debouncedCargasPelis = debounce(cargasPelis, 500);
+  const debouncedCargasPelis = debounce(cargasPelis, 2000);
 
   debouncedCargasPelis(currentPage);
 
@@ -42,7 +42,7 @@ function cargasPelis(page) {
   .catch(error => console.log(error));
 }
 
-function buscarPelis(query) {
+function buscarPelisDebounced(query) {
   fetch(`${API_URL}/search/movie?api_key=${API_KEY}&language=es-ES&query=${query}`)
     .then(response => response.json())
     .then(data => {
@@ -70,24 +70,27 @@ function buscarPelis(query) {
     .catch(error => console.log(error));
 }
 
-function debounce(func, timeout = 5000) {
+const buscarPelis = debounce(buscarPelisDebounced, 2000);
+
+$("#search-form").on("submit", function(event) {
+  event.preventDefault();
+  const query = $("#search-input").val();
+  buscarPelis(query);
+});
+
+function debounce(func, timeout = 2000) {
   let timer;
   return (...args) => {
     clearTimeout(timer);
+    showLoader(); // Show loader before executing function
     timer = setTimeout(() => {
       func.apply(this, args);
+      hideLoader(); // Hide loader after executing function
     }, timeout);
   };
 }
 
-const buscarPelisDebounced = debounce(buscarPelis, 5000);
-
-$("#search").on("keyup", function() {
-  const query = $(this).val();
-  buscarPelisDebounced(query);
-});
-
-function detallesPeli(IDPeli) {
+function detallesPeliDebounced(IDPeli) {
   fetch(`${API_URL}/movie/${IDPeli}?api_key=${API_KEY}&language=es-ES&append_to_response=videos,credits`)
     .then(response => response.json())
     .then(data => {
@@ -138,6 +141,12 @@ function detallesPeli(IDPeli) {
     .catch(error => console.log(error));
 }
 
+const detallesPeli = debounce(detallesPeliDebounced, 2000);
+
+$("#movies").on("click", ".view-more", function(event) {
+  const IDPeli = event.target.dataset.movieId;
+  detallesPeli(IDPeli);
+});
 $("#search-form").submit(function(event) { 
   event.preventDefault();
   let query = $("#query").val().trim();
@@ -174,6 +183,18 @@ function topFunction() {
 window.onload = function(){
   var contenedor = document.getElementById("contenedor_carga");
 
+  contenedor.style.visibility = "hidden";
+  contenedor.style.opacity = "0";
+}
+
+function showLoader() {
+  var contenedor = document.getElementById("contenedor_carga");
+  contenedor.style.visibility = "visible";
+  contenedor.style.opacity = "1";
+}
+
+function hideLoader() {
+  var contenedor = document.getElementById("contenedor_carga");
   contenedor.style.visibility = "hidden";
   contenedor.style.opacity = "0";
 }
