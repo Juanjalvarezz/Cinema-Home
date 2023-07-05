@@ -207,6 +207,8 @@ h1 {
   -o-transition: all 1.5s ease;
   transition: all 1.5s ease;
   z-index: 10000;
+  top: 0;
+  left: 0;
 }
 
 #carga{
@@ -478,6 +480,35 @@ white;
     }
 }
 
+#pagination {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  margin: 20px; }
+
+#pagination button {
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: #4953dd;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 0 10px; 
+}
 
 
+#pagination button {
+  transition: all 0.2s;
+}
 
+
+#pagination button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+#pagination button:active {
+  transform: scale(0.9);
+}

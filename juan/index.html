@@ -20,7 +20,7 @@
           <nav>
               <ul>
                   <li><a href="index.html">Inicio</a></li>
-                  <li><a href="#movies">Peliculas Populares</a></li>
+                  <li><a href="index.html">Peliculas Populares</a></li>
                   <li><form id="search-form" class="search-bar">
                     <input type="text" id="query" class="search-input" placeholder="Buscar películas...">
                     <button name="buscador" type="submit" class="boton">Buscar</button>
@@ -47,29 +47,13 @@
   </div>
 
 
+ <!--Buscador y Peliculas-->
   <div id="movies">
   </div>
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    $.ajax({
-      url: "https://api.themoviedb.org/3/movie/popular?api_key=4c7644be5749ff57cb3cd3e80f76d300&language=es-ES&page=1",
-      success: function(data) {
-        for (let i=0; i<data.results.length; i++) {
-          let movie = data.results[i];
-          $("#movies").append(
-            `<div class="movie">
-              <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" />
-              <h2>${movie.title}</h2>
-            </div>`
-          );
-        }
-      }
-    });
-  </script>
 
-<!--Buscador-->
-<div id="movies">
+<div id="pagination">
+  <button id="prev-page" class="pagination">Prev</button>
+  <button id="next-page" class="pagination">Next</button>
 </div>
 
 <!--Footer-->
