@@ -582,16 +582,31 @@ white;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0);
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 1000;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;}
+  background-repeat: no-repeat;
+  padding: 30px; /* Agregar un margen alrededor del contenido */
+  box-sizing: border-box; /* Incluir el padding en el ancho y alto del elemento */
+  text-align: center; /* Centrar el contenido horizontalmente */
+}
+
+.overlay::before {
+  content: "";
+  position: absolute; /* Establecer una posición absoluta para el pseudo-elemento */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; /* Ajustar z-index para posicionar detrás del contenido del overlay */
+  background-color: rgba(0, 0, 0, 0.85); /* Establecer un color de fondo negro con opacidad del 50% */
+}
 
 .overlay h3 {
   margin-bottom: 20px;
@@ -611,4 +626,35 @@ white;
   font-size: 24px;
   cursor: pointer;
   z-index: 2;
+}
+
+@media (max-width: 600px) {
+  .overlay {
+    font-size: 16px;
+  }
+  
+  .overlay h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .overlay p {
+    margin: 10px;
+  }
+  
+  .overlay button {
+    font-size: 16px;
+  }
+  .overlay {
+    padding: 10px; /* Reducir el margen en dispositivos móviles */
+  }
+  
+  .overlay h3 {
+    font-size: 24px; /* Reducir el tamaño de fuente en dispositivos móviles */
+  }
+  
+  .overlay p {
+    font-size: 16px; /* Reducir el tamaño de fuente en dispositivos móviles */
+  }
+  
 }

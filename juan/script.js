@@ -20,11 +20,11 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   document.querySelector("#page-input").addEventListener("change", function() {
-    // Obtener el valor del input como un número
+    // Obtener el valor del form
     let page = Number(this.value);
     // Validar que el valor sea mayor que cero
     if (page > 0) {
-      // Actualizar la variable currentPage y cargar las películas de esa página
+      // Actualizar la variable currentPage y cargar las películas de esa pagina exacta
       currentPage = page;
       debouncedCargasPelis(currentPage);
     }
@@ -39,13 +39,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
-
 function cargasPelis(page) {
   fetch(`${API_URL}/movie/popular?api_key=${API_KEY}&language=es-ES&page=${page}`)
     .then(response => response.json())
     .then(data => {
       let moviesContainer = document.querySelector("#movies");
-      moviesContainer.innerHTML = ""; // Clear previous movies from container
+      moviesContainer.innerHTML = ""; // Desaparecer pelis del container anterior
       for (let i = 0; i < data.results.length; i++) {
         let movie = data.results[i];
         let movieDiv = document.createElement("div");
@@ -54,13 +53,13 @@ function cargasPelis(page) {
         img.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
         let h2 = document.createElement("h2");
         h2.textContent = movie.title;
-        h2.style.pointerEvents = "none"; // Disable pointer events on the h2 element
+        h2.style.pointerEvents = "none"; // Quitar puntero del h2
         movieDiv.appendChild(img);
         movieDiv.appendChild(h2);
         moviesContainer.appendChild(movieDiv);
 
-        // Agregar evento click al elemento img de la película
-        img.addEventListener("click", () => {
+        // Agregar evento click a la imagen del poster
+        img.addEventListener("click", debounce(() => {
           // Crear elemento overlay
           let overlay = document.createElement("div");
           overlay.classList.add("overlay");
@@ -70,6 +69,12 @@ function cargasPelis(page) {
           let h3 = document.createElement("h3");
           h3.textContent = movie.title;
           overlay.appendChild(h3);
+           // Crear elemento para la imagen del poster
+             let img = document.createElement("img");
+             img.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+             img.alt = movie.title;
+             overlay.appendChild(img);
+             overlay.style.zIndex = 1000;
           // Crear botón para salir del overlay
           let closeButton = document.createElement("button");
           closeButton.textContent = "X";
@@ -97,7 +102,7 @@ function cargasPelis(page) {
           overlay.style.alignItems = "center";
           // Agregar overlay al contenedor de películas
           document.body.appendChild(overlay);
-        });
+        }, 2000));
       }
 
       // Actualizar número de página actual
