@@ -5,10 +5,7 @@
   <title>Películas populares - The Movie DB</title>
   <link rel="stylesheet" href="styles.css">
   <script src="scrollreveal.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"/>
-  <link rel="stylesheet" type="text/css" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
@@ -46,10 +43,6 @@
 
 <!--Peliculas-->
   <h1>Cartelera</h1>
-  <div class="bt"> 
-    <button type="button" class="btn-dark boton" onclick="cambiarModo()">Oscuro / Claro</button>
-  </div> 
-
   <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 
   <div id="contenedor_carga">
@@ -67,7 +60,11 @@
   <button id="next-page" class="pagination">Next</button>
 </div>
 
-
+<div class="bt"> 
+  <button type="button" class="btn-dark boton" onclick="cambiarModo()">
+    <i id="icono" class="fas fa-sun"></i>
+  </button>
+</div>
 
 <!--Footer-->
 <footer class="pie-pagina">
@@ -91,12 +88,24 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!--Modo claro/obscuro-->
-<script type="text/javascript"> 
-  function cambiarModo() { 
-    var cuerpoweb = document.body; 
-    cuerpoweb.classList.toggle("oscuro"); 
-  } 
-</script>
+  <script type="text/javascript"> 
+    function cambiarModo() { 
+      var cuerpoweb = document.body; 
+      cuerpoweb.classList.toggle("oscuro"); 
+  
+      // Obtener el elemento del icono
+      var icono = document.getElementById("icono");
+  
+      // Si el icono es el sol, cambiarlo a la luna y viceversa
+      if (icono.classList.contains("fa-sun")) {
+        icono.classList.remove("fa-sun");
+        icono.classList.add("fa-moon");
+      } else {
+        icono.classList.remove("fa-moon");
+        icono.classList.add("fa-sun");
+      }
+    } 
+  </script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
