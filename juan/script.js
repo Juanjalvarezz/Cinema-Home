@@ -78,9 +78,6 @@ function cargasPelis(page) {
           // Crear botón para salir del overlay
           let closeButton = document.createElement("button");
           closeButton.textContent = "X";
-          closeButton.style.position = "absolute";
-          closeButton.style.top = "10px";
-          closeButton.style.right = "10px";
           closeButton.addEventListener("click", () => {
             overlay.remove();
           });
@@ -96,10 +93,7 @@ function cargasPelis(page) {
             })
             .catch(error => console.log(error));
           // Establecer estilo del overlay
-          overlay.style.display = "flex";
-          overlay.style.flexDirection = "column";
-          overlay.style.justifyContent = "center";
-          overlay.style.alignItems = "center";
+
           // Agregar overlay al contenedor de películas
           document.body.appendChild(overlay);
         }, 2000));
@@ -288,28 +282,103 @@ function hideLoader() {
   contenedor.style.opacity = "0";
 }
 
-//Menu
-const theBody = document.querySelector('body');
-const openNav = document.querySelector('.menu-bar button');
-const closeNav = document.querySelector('.close-nav button');
-const Navbar = document.querySelector('.navbar');
 
-// function bodyScroll(){
-//     if(Navbar.classList.contains('show')){
-//         theBody.classList.add('hide-scroll');
-//     }
-//     else if(theBody.classList.contains('hide-scroll')){
-//         theBody.classList.remove('hide-scroll');
-//     }
-// }
+//// EL HEADER
+         const menuBtn = document.querySelector(".menu-icon span");
+         const searchBtn = document.querySelector(".search-icon");
+         const cancelBtn = document.querySelector(".cancel-icon");
+         const items = document.querySelector(".nav-items");
+         const form = document.querySelector("form");
+         menuBtn.onclick = ()=>{
+           items.classList.add("active");
+           menuBtn.classList.add("hide");
+           searchBtn.classList.add("hide");
+           cancelBtn.classList.add("show");
+         }
+         cancelBtn.onclick = ()=>{
+           items.classList.remove("active");
+           menuBtn.classList.remove("hide");
+           searchBtn.classList.remove("hide");
+           cancelBtn.classList.remove("show");
+           form.classList.remove("active");
+           cancelBtn.style.color = "#ff3d00";
+         }
+         searchBtn.onclick = ()=>{
+           form.classList.add("active");
+           searchBtn.classList.add("hide");
+           cancelBtn.classList.add("show");
+         }
+///////
 
-function showHide(){
-    Navbar.classList.toggle('show');
-    // bodyScroll();
-}
 
-openNav.onclick = showHide;
-closeNav.onclick = showHide;
+/////SLIDER
+const tvshows = () => {
+  fetch(`https://api.themoviedb.org/3/tv/top_rated?api_key=45b49c30d379e8a24e7a536d9c44d2d9&language=es-VE`)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else if (response.status === 401) {
+        console.log('No tienes acceso a la base de datos. Llave incorrecta.');
+      } else if (response.status === 404) {
+        console.log('Lo siento, la serie que buscas no existe.');
+      } else {
+        console.log('Unknow error!');
+      }
+    })
+    .then(data => {
+      let results = data.results.slice(0, 5);
+      let shows = '';
+      results.forEach(show => {
+        let first_air_date = show.first_air_date;
+        let year = first_air_date.split('-');
+        shows +=
+          `
+          <div class="slider-top__top">
+            <img src="https://image.tmdb.org/t/p/w500/${show.backdrop_path}" alt="Fondo relacionado a la serie." class="slider-top__backdrop">
+            <img class="slider-top__linkImg slider-top__img" src="https://image.tmdb.org/t/p/w500/${show.poster_path}">
+            <div class="slider-top__div data">
+              <h3 class="slider-top__title slider-top__link">${show.name}</h3>
+              <p class="slider-top__year">${year[0]}</p>
+              <br>
+              <span class="slider-top__rate">${show.vote_average}</span>
+              <p class="slider-top__summary"><span class="slider-top__summaryTitle">Vista general</span>${show.overview}.</p>
+            </div>
+          </div>
+          `;
+      });
+      document.querySelector('.slider-top__container').innerHTML = shows;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
+
+tvshows();
+`use strict`
+//para traer los elementos del document.
+const container = document.querySelector('.slider-top__container')
+const points = document.querySelectorAll('.slider-top__point')
+
+// Al hacer click en un punto.
+    //Saber la posición de ese punto.
+    //Aplicar el translateX(-20%). En el translate vamos de 20 en 20 siendo 0 el primero.
+    //Quitar clase '.active' a todos los puntos.
+    //Añadir clase '.active' a el punto seleccionado.
+
+points.forEach( (eachPoint, i) =>{
+    points[i].addEventListener('click', ()=> {
+        let index = i;
+        let calc = index * -20
+        container.style.transform = `translateX(${calc}%)`
+
+        points.forEach((eachPoint, i)=>{
+            points[i].classList.remove('active')
+        })
+        points[i].classList.add('active')
+    })
+} )
+
 
 //Scroll
 window.sr = ScrollReveal();
@@ -320,6 +389,7 @@ window.sr = ScrollReveal();
     });
 
 //slider
+
 
 
 

@@ -40,27 +40,19 @@ h1 {
   transform: translateY(4px);
 }
 
-/*Buscador*/
-.search-bar {
-  display: flex;
-  align-items: center;
-  max-width: 100%;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  background-color: #f2f2f2;
-  border-radius: 20px;
-  padding: 10px;
-  box-shadow: 0 9px #999;
-  height: 80px;
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 40px;
+  }
+
+  .boton {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
 }
 
-.search-input {
-  flex-grow: 1;
-  border: none;
-  outline: none;
-  padding: 10px;
-  font-size: 16px;
-}
+
 
 /*Estilo para la busqueda de peliculas*/
 .movie-info {
@@ -89,6 +81,65 @@ h1 {
   padding-left: 20px;
 }
 
+/* TELEFONOS */
+@media screen and (max-width: 768px) {
+  .movie-info {
+    border-radius: 10px; /* Reducir el radio de la esquina de la sección */
+    margin: 5px; /* Ajustar el margen de la sección */
+    padding: 10px; /* Ajustar el relleno de la sección */
+    align-items: center;
+    text-align: center;
+  }
+
+  .movie-info p {
+    font-size: 14px; /* Reducir el tamaño de fuente del párrafo de la película */
+  }
+
+  .movie-info h3 {
+    font-size: 20px; /* Reducir el tamaño de fuente del título de la película */
+  }
+
+  .movie-info img{
+    width: 50%;
+    height: 50%;
+  }
+
+  .contenedor {
+    flex-direction: column; /* Cambiar la dirección del flexbox a vertical */
+  }
+
+  .pad {
+    padding-left: 0; /* Eliminar el relleno izquierdo del contenedor */
+  }
+}
+
+/* TABLETS */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .movie-info {
+    max-width: 90%; /* Reducir el ancho máximo de la sección de información */
+    border-radius: 15px; /* Ajustar el radio de la esquina de la sección */
+    margin: 10px; 
+    padding: 15px; 
+  }
+
+  .movie-info p {
+    font-size: 18px; 
+  }
+
+  .movie-info h3 {
+    font-size: 36px; 
+  }
+
+  .contenedor {
+    flex-direction: row; /* Cambiar la dirección del flexbox a horizontal */
+  }
+  .pad {
+    padding-left: 20px; /* Añadir relleno izquierdo al contenedor */
+  }
+}
+
+
+/*CARGA DE PELIS POPULARES*/
   #movies {
     display: flex;
     flex-wrap: wrap;
@@ -125,6 +176,14 @@ h1 {
     font-size: 14px;
 
   }
+  @media (max-width:600px) {
+    #movies {
+        flex-direction: column;
+        align-items:center;
+    }
+}
+
+/*DETALLES DE PELICULAS AHI TA ABAJO*/
   
   .movie-detail {
     width: 100%;
@@ -216,6 +275,80 @@ h1 {
     opacity: 1; /* Mostrar la descripción cuando se hace hover sobre la película */
   }
 
+  @media screen and (max-width: 768px) {
+    .movie-detail {
+        border-radius: 10px; 
+    }
+
+    .movie-detail img {
+        width: 80%;
+        margin-top: 10px; 
+    }
+
+    .movie-detail h2 {
+        font-size: 20px; 
+        margin-top: 10px;
+    }
+
+    .movie-detail p {
+        font-size: 14px; 
+        margin-top: 5px; 
+    }
+
+    .movie-detail li {
+        font-size: 14px; 
+        margin-top: 5px; 
+    }
+
+    .movie-detail .cast,
+    .movie-detail .crew {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Reducir el ancho de los elementos de reparto y equipo técnico de la película */
+    }
+
+    .movie-detail .director img,
+    .movie-detail .actor img {
+        width: 70%; 
+    }
+}
+
+/* Reglas de medios para tabletas */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .movie-detail {
+        max-width: 90%; 
+        border-radius: 15px; 
+    }
+
+    .movie-detail img {
+        width: 50%; 
+        margin-top: 10px; 
+    }
+
+    .movie-detail h2 {
+        font-size: 22px; 
+        margin-top: 15px; 
+    }
+
+    .movie-detail p {
+        font-size: 16px; 
+        margin-top: 10px; 
+    }
+
+    .movie-detail li {
+        font-size: 16px; 
+        margin-top: 10px; 
+    }
+
+    .movie-detail .cast,
+    .movie-detail .crew {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Ajustar el ancho de los elementos de reparto y equipo técnico de la película */
+    }
+
+    .movie-detail .director img,
+    .movie-detail .actor img {
+        width: 50%; 
+    }
+}
+
  /*Boton top*/ 
  #myBtn {
   display: none;
@@ -306,180 +439,19 @@ h1 {
 }
 
 /*RESPONSIVE DEL MODO CLARO/OSCURO*/
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .btn-dark {
     padding: 5px;
   }
 
   .fas {
-    font-size: 15px;
+    font-size: 20px;
   }
 }
  
   
 
-/*HEADER NORMAL*/
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-}
 
-header {
-  background-color: #334a62;
-  box-shadow: 0 10px 15px -3px 
-rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  padding: 10px 10px;
-  margin-top: 20px;
-  margin: 10px;
-  border-radius: 20px;
-  font-family: Verdana;
-}
-header .wrapper {
-  max-width: auto;
-  margin: 0px 20;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content:left;
-}
-
-
-header .logo img {
-  height: 100px;
-  display: block;
-}
-
-
-header .logo {
-  width: auto;
-  transition: all 0.2s;
-}
-
-header .logo:hover{
-  transform: scale(1.2);
-}
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 100%;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #334a62;
-  padding: 20px;
-  transition: left 0.3s;
-  margin-right: 20px;
-}
-
-.navbar.show {
-  left: 0 !important;
-}
-
-
-.hide-scroll {
-  overflow: hidden;
-}
-
-.navbar ul {
-  all: unset;
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 35px;
-}
-.navbar ul a {
-  all: unset;
-  color: white;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 28px;
-  transition: all 0.2s;
-  width: 100px; /* aumenta el ancho de los elementos */
-  margin: 0 10px; /* agrega un margen lateral */
-}
-.navbar ul a:hover {
-  background-color: #4953dd;
-  border-radius: 10px;
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-}
-
-.navbar ul li{
-  transition: all 0.2s;
-}
-
-.navbar ul li:hover{
-  transform: scale(1.2);
-}
-
-.close-nav {
-  text-align: right;
-  margin-bottom: 20px;
-}
-.close-nav button {
-  all: unset;
-  background: 
-#f7f7f7;
-  font-size: 42px;
-  cursor: pointer;
-  border: 1px solid 
-rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  border-radius: 3px;
-  color: 
-#444444;
-}
-.close-nav button:hover {
-  color: 
-#222222;
-  background: 
-white;
-}
-
-.menu-bar button {
-  border: 1px solid 
-rgba(0, 0, 0, 0.1);
-  background: 
-#f7f7f7;
-  height: 50px;
-  width: 50px;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 3px;
-}
-.menu-bar i {
-  display: block;
-  border-top: 3px solid 
-#444444;
-  border-bottom: 3px solid 
-#444444;
-}
-.menu-bar i::after {
-  display: block;
-  content: "";
-  border-top: 3px solid 
-#444444;
-  margin: 6px 0;
-}
-.menu-bar button:hover {
-  background: 
-white;
-}
-.menu-bar button:hover i {
-  border-color: 
-#222222;
-}
-
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 30px;
-}
 
 /*Footer*/
 .pie-pagina{
@@ -549,6 +521,96 @@ white;
         grid-gap:30px;
         padding: 35px 0px;
     }
+}
+
+/* Estilo base para el pie de página */
+.pie-pagina{
+  width: 100%;
+  background-color: #0a141d;
+  font-family: Verdana;
+}
+
+/* Estilo para el contenedor principal del pie de página */
+.pie-pagina .grupo-1{
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap:50px;
+  padding: 45px 0px;
+}
+
+/* Estilo para la figura de la caja del pie de página */
+.pie-pagina .grupo-1 .box figure{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para la imagen de la figura de la caja del pie de página */
+.pie-pagina .grupo-1 .box figure img{
+  width: 250px;
+}
+
+/* Estilo para el título de la caja del pie de página */
+.pie-pagina .grupo-1 .box h2{
+  color: #fff;
+  margin-bottom: 25px;
+  font-size: 20px;
+}
+
+/* Estilo para el texto de la caja del pie de página */
+.pie-pagina .grupo-1 .box p{
+  color: #efefef;
+  margin-bottom: 10px;
+}
+
+/* Estilo para el segundo grupo del pie de página */
+.pie-pagina .grupo-2{
+  background-color: #0a1a2a;
+  padding: 15px 10px;
+  text-align: center;
+  color: #fff;
+}
+
+/* Estilo para el texto pequeño del segundo grupo del pie de página */
+.pie-pagina .grupo-2 small{
+  font-size: 15px;
+}
+
+/* Reglas de medios para dispositivos móviles */
+@media screen and (max-width: 480px) {
+  .pie-pagina .grupo-1{
+    width: 90%;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap:30px;
+    padding: 35px 0px;
+  }
+
+  .pie-pagina .grupo-1 .box {
+    text-align: center;
+  }
+
+  .pie-pagina .grupo-1 .box figure img{
+    width: 200px;
+  }
+
+  .pie-pagina .grupo-1 .box h2 {
+    font-size: 18px;
+  }
+
+  .pie-pagina .grupo-1 .box p {
+    font-size: 14px;
+  }
+
+  .pie-pagina .grupo-2 small{
+    font-size: 14px;
+  }
 }
 
 
@@ -624,6 +686,7 @@ white;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  font-family: "Verdana";
   padding: 30px; /* Agregar un margen alrededor del contenido */
   box-sizing: border-box; /* Incluir el padding en el ancho y alto del elemento */
   text-align: center; /* Centrar el contenido horizontalmente */
@@ -648,6 +711,16 @@ white;
   margin: 20px;
 }
 
+
+.overlay img {
+  display: block; /* Establecer la imagen como bloque para centrarla verticalmente */
+  margin: 0 auto; /* Centrar la imagen horizontalmente */
+  max-width: 80%; /* Establecer el ancho máximo de la imagen al 100% del contenedor */
+  height: 80%; /* Establecer la altura automática para mantener la proporción de la imagen */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agregar una sombra alrededor de la imagen */
+}
+
+
 .overlay button {
   position: absolute;
   top: 10px;
@@ -659,35 +732,295 @@ white;
   cursor: pointer;
   z-index: 2;
 }
+@media screen and (max-width: 768px) {
+  .overlay {
+    padding: 10px; /* Reducir el margen alrededor del contenido */
+  }
 
-@media (max-width: 600px) {
-  .overlay {
-    font-size: 16px;
-  }
-  
   .overlay h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 24px; /* Ajustar el tamaño de fuente del título */
   }
-  
+
   .overlay p {
-    margin: 10px;
+    font-size: 16px; /* Ajustar el tamaño de fuente del contenido */
   }
-  
+
+  .overlay img {
+    max-width: 50%; /* Establecer el ancho máximo de la imagen al 80% del contenedor */
+    height: 50%; /* Establecer la altura al 70% del alto del contenedor */
+  }
+
   .overlay button {
-    font-size: 16px;
+    top: 5px; /* Ajustar la posición del botón de cerrar */
+    right: 5px;
+    font-size: 20px; /* Ajustar el tamaño de fuente del botón de cerrar */
   }
-  .overlay {
-    padding: 10px; /* Reducir el margen en dispositivos móviles */
-  }
-  
-  .overlay h3 {
-    font-size: 24px; /* Reducir el tamaño de fuente en dispositivos móviles */
-  }
-  
-  .overlay p {
-    font-size: 16px; /* Reducir el tamaño de fuente en dispositivos móviles */
-  }
-  
 }
 
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .overlay {
+    padding: 20px; /* Aumentar el margen alrededor del contenido */
+  }
+
+  .overlay h3 {
+    font-size: 28px; /* Ajustar el tamaño de fuente del título */
+  }
+
+  .overlay p {
+    font-size: 18px; /* Ajustar el tamaño de fuente del contenido */
+  }
+
+  .overlay img {
+    max-width: 50%; /* Establecer el ancho máximo de la imagen al 80% del contenedor */
+    height: 50%; /* Establecer la altura al 70% del alto del contenedor */
+  }
+
+  .overlay button {
+    font-size: 28px; /* Ajustar el tamaño de fuente del botón de cerrar */
+    top: 15px; /* Ajustar la posición del botón de cerrar */
+    right: 15px;
+  }
+}
+
+.header{
+  background: #171c24;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 100px;
+  z-index: 1
+
+}
+
+nav{
+  background: #171c24;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 100px;
+  z-index: 1000
+}
+nav .logo{
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+nav .nav-items{
+  display: flex;
+  flex: 1;
+  padding: 0 0 0 40px;
+}
+nav .nav-items li{
+  list-style: none;
+  padding: 0 15px;
+}
+nav .nav-items li a{
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+}
+nav .nav-items li a:hover{
+  color: #ff3d00;
+}
+nav form{
+  display: flex;
+  height: 40px;
+  padding: 2px;
+  background: #1e232b;
+  min-width: 18%!important;
+  border-radius: 2px;
+  border: 1px solid rgba(155,155,155,0.2);
+  z-index: 1;
+
+}
+nav form .search-input{
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  font-weight: 500;
+  background: none;
+}
+nav form button{
+  padding: 0 15px;
+  color: #fff;
+  font-size: 17px;
+  background: #ff3d00;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+nav form button:hover{
+  background: #e63600;
+}
+nav .menu-icon,
+nav .cancel-icon,
+nav .search-icon{
+  width: 40px;
+  text-align: center;
+  margin: 0 50px;
+  font-size: 18px;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+}
+nav .menu-icon span,
+nav .cancel-icon,
+nav .search-icon{
+  display: none;
+}
+@media (max-width: 1245px) {
+  nav{
+    padding: 0 50px;
+  }
+}
+@media (max-width: 1140px){
+  nav{
+    padding: 0px;
+  }
+  nav .logo{
+    flex: 2;
+    text-align: center;
+  }
+  nav .nav-items{
+    position: fixed;
+    z-index: 99;
+    top: 70px;
+    width: 100%;
+    left: -100%;
+    height: 100%;
+    padding: 10px 50px 0 50px;
+    text-align: center;
+    background: #14181f;
+    display: inline-block;
+  }
+  nav .nav-items.active{
+    left: 0px;
+  }
+  nav .nav-items li{
+    line-height: 40px;
+    margin: 30px 0;
+  }
+  nav .nav-items li a{
+    font-size: 20px;
+  }
+  nav form{
+    position: absolute;
+    top: 80px;
+    right: 50px;
+    opacity: 0;
+    pointer-events: none;
+    z-index:1
+  }
+  nav form.active{
+    top: 95px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  nav form:before{
+    position: absolute;
+    content: "";
+    top: -13px;
+    right: 0px;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    border: 10px solid transparent;
+    border-bottom-color: #1e232b;
+    margin: -20px 0 0;
+  }
+  nav form:after{
+    position: absolute;
+    content: '';
+    height: 60px;
+    padding: 2px;
+    background: #1e232b;
+    border-radius: 2px;
+    min-width: calc(100% + 20px);
+    z-index: -2;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  nav .menu-icon{
+    display: block;
+  }
+  nav .search-icon,
+  nav .menu-icon span{
+    display: block;
+  }
+  nav .menu-icon span.hide,
+  nav .search-icon.hide{
+    display: none;
+  }
+  nav .cancel-icon.show{
+    display: block;
+  }
+}
+.content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+.content header{
+  font-size: 30px;
+  font-weight: 700;
+}
+.content .text{
+  font-size: 30px;
+  font-weight: 700;
+}
+.space{
+  margin: 10px 0;
+}
+nav .logo.space{
+  color: red;
+  padding: 0 5px 0 0;
+}
+@media (max-width: 980px){
+  nav .menu-icon,
+  nav .cancel-icon,
+  nav .search-icon{
+    margin: 0 20px;
+  }
+  nav form{
+    right: 30px;
+  }
+}
+@media (max-width: 350px){
+  nav .menu-icon,
+  nav .cancel-icon,
+  nav .search-icon{
+    margin: 0 10px;
+    font-size: 16px;
+  }
+}
+.content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.content header{
+  font-size: 30px;
+  font-weight: 700;
+}
+.content .text{
+  font-size: 30px;
+  font-weight: 700;
+}
+.content .space{
+  margin: 10px 0;
+}
+
+/*BANER 2*/
