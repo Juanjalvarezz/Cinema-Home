@@ -111,9 +111,15 @@ function ocultarElementos() {
   $("h1").hide();
   $("#pagination").hide();
 }
+function ocultarSlider() {
+  const sliderContainer = document.querySelector('.slider-top');
+  sliderContainer.style.display = 'none';
+}
+
 
 function buscarPelisDebounced(query) {
   ocultarElementos();
+  ocultarSlider()
   fetch(`${API_URL}/search/movie?api_key=${API_KEY}&language=es-ES&query=${query}`)
     .then(response => response.json())
     .then(data => {
