@@ -116,9 +116,90 @@ function ocultarSlider() {
   sliderContainer.style.display = 'none';
 }
 
+/*AUTOCOMPLETADO*/
+const searchInput = document.getElementById("query");
+
+const searchAutocomplete = async () => {
+  // Obtener el valor actual del input
+  const query = searchInput.value.toLowerCase();
+
+  // Hacer una solicitud a la API de autocompletado de TMDb en inglés
+  const responseEn = await axios.get(`${API_URL}/search/movie?api_key=${API_KEY}&query=${query}`);
+
+  // Hacer una solicitud a la API de autocompletado de TMDb en español
+  const responseEs = await axios.get(`${API_URL}/search/movie?api_key=${API_KEY}&query=${query}&language=es`);
+
+  // Filtrar los resultados para obtener solo los títulos de las películas en inglés y español
+  const titlesEn = responseEn.data.results.map((movie) => movie.title);
+  const titlesEs = responseEs.data.results.map((movie) => movie.title);
+
+  // Combinar los títulos de las películas en inglés y español
+  const titles = [...new Set([...titlesEn, ...titlesEs])];
+
+  // Inicializar el autocompletado con los títulos de películas como fuente de datos
+  autocomplete(searchInput, titles);
+};
+
+// Inicializar el autocompletado cuando se escriba en el input
+searchInput.addEventListener("input", searchAutocomplete);
+
+const autocomplete = (input, arr) => {
+  // Cerrar cualquier lista de sugerencias abierta
+  closeAllLists();
+
+  // Si el input está vacío, no mostrar ninguna sugerencia
+  if (!input.value) {
+    return false;
+  }
+
+  // Crear un elemento "div" que contendrá las sugerencias
+  const div = document.createElement("div");
+  div.setAttribute("class", "autocomplete-items");
+
+  // Agregar el elemento "div" como hijo del input
+  input.parentNode.appendChild(div);
+
+  // Iterar sobre los elementos del arreglo de sugerencias
+  for (let i = 0; i < arr.length; i++) {
+    // Si la sugerencia comienza con el valor del input, mostrarla
+    if (arr[i].toLowerCase().startsWith(input.value.toLowerCase())) {
+      // Crear un elemento "div" para la sugerencia
+      const suggestion = document.createElement("div");
+      suggestion.innerHTML = `<strong>${arr[i].substr(0, input.value.length)}</strong>${arr[i].substr(input.value.length)}`;
+      suggestion.setAttribute("class", "autocomplete-item");
+
+      // Agregar un listener para cuando se haga clic en la sugerencia
+      suggestion.addEventListener("click", () => {
+        // Establecer el valor del input como la sugerencia seleccionada
+        input.value = arr[i];
+
+        // Cerrar la lista de sugerencias
+        closeAllLists();
+        
+        // Hacer la búsqueda con la sugerencia seleccionada
+        buscarPelis(input.value);
+      });
+
+      // Agregar la sugerencia como hijo del elemento "div" de sugerencias
+      div.appendChild(suggestion);
+    }
+  }
+};
+
+const closeAllLists = (elmnt) => {
+  // Obtener todos los elementos "div" de sugerencias
+  const items = document.getElementsByClassName("autocomplete-items");
+
+  // Iterar sobre los elementos "div" de sugerencias y cerrarlos
+  for (let i = 0; i < items.length; i++) {
+    if (elmnt !== items[i] && elmnt !== searchInput) {
+      items[i].parentNode.removeChild(items[i]);
+    }
+  }
+};
 
 function buscarPelisDebounced(query) {
-  ocultarElementos();
+  ocultarElementos(); 
   ocultarSlider()
   fetch(`${API_URL}/search/movie?api_key=${API_KEY}&language=es-ES&query=${query}`)
     .then(response => response.json())
@@ -157,6 +238,7 @@ $("#movies").empty().append(html);
     })
     .catch(error => console.log(error));
 }
+
 
 
 const buscarPelis = debounce(buscarPelisDebounced, 2000);
@@ -258,24 +340,45 @@ $(document).on("click", ".view-more", function(event) {
   detallesPeli(IDPeli);
 });
 
+let mybutton = document.getElementById("myBtn");
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
 //Boton top
 $(document).ready(function(){
-
-	$('.ir-arriba').click(function(){
-		$('body, html').animate({
-			scrollTop: '0px'
-		}, 300);
-	});
-
-	$(window).scroll(function(){
-		if( $(this).scrollTop() > 0 ){
-			$('.ir-arriba').slideDown(300);
-		} else {
-			$('.ir-arriba').slideUp(300);
-		}
-	});
-
+  let mybutton = document.getElementById("myBtn");
+  
+    $('.ir-arriba').click(function(){
+      $('body, html').animate({
+        scrollTop: '0px'
+      }, 300);
+    });
+  window.onscroll = function() {scrollFunction()};
+  
+    $(window).scroll(function(){
+      if( $(this).scrollTop() > 0 ){
+        $('.ir-arriba').slideDown(300);
+      } else {
+        $('.ir-arriba').slideUp(300);
+      }
+    });
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
 });
+  
 
 
 //Loader
@@ -414,6 +517,8 @@ window.sr = ScrollReveal();
         origin: "bottom",
         distance: "-100px"
     });
+
+//slider
 
 
 
