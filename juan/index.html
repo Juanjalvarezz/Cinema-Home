@@ -39,40 +39,47 @@
  </nav>
 </header>
 
-<div class="slider-top">
-  <div class="slider-top__container"></div>
-  <div class="slider-top__arrows">
-    <button class="slider-top__arrow slider-top__arrow--left"><i class="fas fa-chevron-left"></i></button>
-    <button class="slider-top__arrow slider-top__arrow--right"><i class="fas fa-chevron-right"></i></button>
+<main>
+  <section>
+    <div class="slider-top">
+      <div class="slider-top__container"></div>
+      <div class="slider-top__arrows">
+        <button class="slider-top__arrow slider-top__arrow--left"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-top__arrow slider-top__arrow--right"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>  
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+  </section>
+
+  
+  <!--Peliculas-->
+  <section>
+    <h1>Cartelera</h1>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+  
+    <div id="contenedor_carga">
+      <div id="carga"></div>
+    </div>
+  
+   <!--Buscador y Peliculas-->
+    <div id="movies">
+    </div>
+  
+  <div id="pagination">
+    <button id="prev-page" class="pagination">Prev</button>
+    <input id="page-input" type="number" min="1" value="1" class="pagination-input">
+    <p id="page-number"></p>
+    <button id="next-page" class="pagination">Next</button>
   </div>
-</div>  
-<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+  
+   <div class="bt"> 
+    <button type="button" class="btn-dark boton" onclick="cambiarModo()">
+      <i id="icono" class="fas fa-sun"></i>
+    </button>
+   </div>
+  </section>
+</main>
 
-
-<!--Peliculas-->
-  <h1>Cartelera</h1>
-  <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-
-  <div id="contenedor_carga">
-    <div id="carga"></div>
-  </div>
-
- <!--Buscador y Peliculas-->
-  <div id="movies">
-  </div>
-
-<div id="pagination">
-  <button id="prev-page" class="pagination">Prev</button>
-  <input id="page-input" type="number" min="1" value="1" class="pagination-input">
-  <p id="page-number"></p>
-  <button id="next-page" class="pagination">Next</button>
-</div>
-
-<div class="bt"> 
-  <button type="button" class="btn-dark boton" onclick="cambiarModo()">
-    <i id="icono" class="fas fa-sun"></i>
-  </button>
-</div>
 
 <!--Footer-->
 <footer class="pie-pagina">

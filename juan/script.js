@@ -357,7 +357,8 @@ const tvshows = () => {
         });
       };
       
-      createSlider();
+      const debouncedCreateSlider = debounce(createSlider, 750);
+      debouncedCreateSlider();
       
       const sliderLeft = document.querySelector('.slider-top__arrow--left');
       const sliderRight = document.querySelector('.slider-top__arrow--right');
@@ -367,7 +368,7 @@ const tvshows = () => {
         if (sliderIndex < 0) {
           sliderIndex = tvshows.length - 1;
         }
-        createSlider();
+        debouncedCreateSlider();
       });
       
       sliderRight.addEventListener('click', () => {
@@ -375,7 +376,7 @@ const tvshows = () => {
         if (sliderIndex >= tvshows.length) {
           sliderIndex = 0;
         }
-        createSlider();
+        debouncedCreateSlider();
       });
       
     })

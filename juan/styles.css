@@ -81,7 +81,7 @@ h1 {
   padding-left: 20px;
 }
 
-/* TELEFONOS */
+/* TELEFONOS MOVIE INFO */
 @media screen and (max-width: 768px) {
   .movie-info {
     border-radius: 10px; /* Reducir el radio de la esquina de la sección */
@@ -113,7 +113,7 @@ h1 {
   }
 }
 
-/* TABLETS */
+/* TABLETS MOVIE INFO*/
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .movie-info {
     max-width: 90%; /* Reducir el ancho máximo de la sección de información */
@@ -1041,7 +1041,7 @@ nav .logo.space{
   position: relative;
   overflow: hidden;
   height: 100%;
-  transition: all .5s ease;
+  transition: all 3s ease;
 }
 
 .slider-top__top {
@@ -1217,4 +1217,6 @@ nav .logo.space{
     height: 25px;
     font-size: 16px;
   }
+
 }
+
