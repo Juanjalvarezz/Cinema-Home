@@ -322,34 +322,65 @@ const tvshows = () => {
       } else if (response.status === 404) {
         console.log('Lo siento, la serie que buscas no existe.');
       } else {
-        console.log('Unknow error!');
+        console.log('Lo siento, ha ocurrido un error en la conexión con el servidor.');
       }
     })
     .then(data => {
-      let results = data.results.slice(0, 5);
-      let shows = '';
-      results.forEach(show => {
-        let first_air_date = show.first_air_date;
-        let year = first_air_date.split('-');
-        shows +=
-          `
-          <div class="slider-top__top">
-            <img src="https://image.tmdb.org/t/p/w500/${show.backdrop_path}" alt="Fondo relacionado a la serie." class="slider-top__backdrop">
-            <img class="slider-top__linkImg slider-top__img" src="https://image.tmdb.org/t/p/w500/${show.poster_path}">
-            <div class="slider-top__div data">
-              <h3 class="slider-top__title slider-top__link">${show.name}</h3>
-              <p class="slider-top__year">${year[0]}</p>
-              <br>
-              <span class="slider-top__rate">${show.vote_average}</span>
-              <p class="slider-top__summary"><span class="slider-top__summaryTitle">Vista general</span>${show.overview}.</p>
-            </div>
-          </div>
-          `;
+      const tvshows = data.results;
+      const sliderContainer = document.querySelector('.slider-top__container');
+      let sliderIndex = 0;
+      
+      const createSlider = () => {
+        sliderContainer.innerHTML = '';
+        tvshows.forEach((tvshow, index) => {
+          if (index === sliderIndex) {
+            sliderContainer.innerHTML += `
+              <div class="slider-top__top">
+                <img class="slider-top__backdrop" src="https://image.tmdb.org/t/p/original/${tvshow.backdrop_path}" alt="${tvshow.name}">
+                <div class="slider-top__div">
+                  <h3 class="slider-top__title">${tvshow.name}</h3>
+                  <p class="slider-top__year">${tvshow.first_air_date.slice(0, 4)}</p>
+                  <div class="slider-top__rate">${tvshow.vote_average}</div>
+                  <p class="slider-top__summary">${tvshow.overview.slice(0, 300)}...</p>
+                </div>
+              </div>
+            `;
+            const rateElement = document.querySelector('.slider-top__rate');
+            if (tvshow.vote_average >= 8) {
+              rateElement.classList.add('slider-top__rate--green');
+            } else if (tvshow.vote_average >= 6) {
+              rateElement.classList.add('slider-top__rate--yellow');
+            } else {
+              rateElement.classList.add('slider-top__rate--red');
+            }
+          }
+        });
+      };
+      
+      createSlider();
+      
+      const sliderLeft = document.querySelector('.slider-top__arrow--left');
+      const sliderRight = document.querySelector('.slider-top__arrow--right');
+      
+      sliderLeft.addEventListener('click', () => {
+        sliderIndex--;
+        if (sliderIndex < 0) {
+          sliderIndex = tvshows.length - 1;
+        }
+        createSlider();
       });
-      document.querySelector('.slider-top__container').innerHTML = shows;
+      
+      sliderRight.addEventListener('click', () => {
+        sliderIndex++;
+        if (sliderIndex >= tvshows.length) {
+          sliderIndex = 0;
+        }
+        createSlider();
+      });
+      
     })
     .catch(error => {
-      console.log(error);
+      console.log('Lo siento, ha ocurrido un error:', error);
     });
 };
 
@@ -358,27 +389,6 @@ tvshows();
 `use strict`
 //para traer los elementos del document.
 const container = document.querySelector('.slider-top__container')
-const points = document.querySelectorAll('.slider-top__point')
-
-// Al hacer click en un punto.
-    //Saber la posición de ese punto.
-    //Aplicar el translateX(-20%). En el translate vamos de 20 en 20 siendo 0 el primero.
-    //Quitar clase '.active' a todos los puntos.
-    //Añadir clase '.active' a el punto seleccionado.
-
-points.forEach( (eachPoint, i) =>{
-    points[i].addEventListener('click', ()=> {
-        let index = i;
-        let calc = index * -20
-        container.style.transform = `translateX(${calc}%)`
-
-        points.forEach((eachPoint, i)=>{
-            points[i].classList.remove('active')
-        })
-        points[i].classList.add('active')
-    })
-} )
-
 
 //Scroll
 window.sr = ScrollReveal();
