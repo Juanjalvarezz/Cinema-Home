@@ -142,8 +142,16 @@ function buscarPelisDebounced(query) {
       html += `
         </ul>
       `;
-      if (data.results.length === 0) {
-        html = "<p>No se encontraron películas con ese nombre</p>";
+      if (data.results.length === 0) {  
+        html = `
+        <div class="no-results">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>No se encontraron películas con ese nombre</p>
+        <a href="index.html" class="go-to-home boton">Ir al inicio</a>
+        </div>
+        `;
+
+$("#movies").empty().append(html);
       }
       $("#movies").empty().append(html);
     })
