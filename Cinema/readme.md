@@ -2,35 +2,38 @@
 
 Pagina hecha con HTML, CSS y JavaScript, la cual está vinculada con la api de TheMovieDB.
 
+## Autores
+Maikel Villegas 
+Juan Sarmiento
 ---
 
 ## Instalación
 
-1. Clonar el repositorio
-2. Instalar la extensión "Live Server"
-3. Pasar la carpeta a Visual Studio Code y usar la extensión para asi tener activo el proyecto
+1. Clonar el repositorio.
+2. Instalar la extensión "Live Server".
+3. Pasar la carpeta a Visual Studio Code o abrir la terminal CMD en la ubicacion de la carpeta y escribir el comando "code ." para que abra sus archvios en Visual Studio Code, para luego haciendo uso de la extensión tener activo el proyecto.
 
 ## Uso
 
 El proyecto cuenta con:
 
-- Funciones DeBounce que son de tipo utilidad para evitar que el usuario spamee diferentes funciones
+- Funciones DeBounce que son de tipo utilidad para evitar que el usuario spamee diferentes funciones.
 
-- Un buscador con autocompletado(que sugiere resultados similares) que busca las peliculas, a partir de la API. Ademas, al buscar las películas saldran las peliculas, de lo contrario nos saldra un mensaje de aviso al no encontrar nada 
+- Un buscador con autocompletado(que sugiere resultados similares) que busca las peliculas, a partir de la API. Ademas, al buscar las películas saldran las peliculas, de lo contrario nos saldra un mensaje de aviso al no encontrar nada.
 
-- Al buscar alguna película, nos permitira ver los detalles de la misma
+- Al buscar alguna película, nos permitira ver los detalles de la misma.
 
-- Un banner tipo slider que contiene los mejores tv shows de la actualidad, a partir de la API
+- Un banner tipo slider que contiene los mejores tv shows de la actualidad, a partir de la API.
 
-- Una sección de Peliculas Populares/Cartelera que contiene las peliculas populares, en conjunto a un overlay cuando clickeas la imagen del poster de la película
+- Una sección de Peliculas Populares/Cartelera que contiene las peliculas populares, en conjunto a un overlay cuando clickeas la imagen del poster de la película.
 
-- Paginación para la sección de peliculas populares, a partir de las Previous(Atras) o Next(Siguiente), así como input de un numero de pagina para llevarte directamente a la que necesites
+- Paginación para la sección de peliculas populares, a partir de las Previous(Atras) o Next(Siguiente), así como input de un numero de pagina para llevarte directamente a la que necesites.
 
-- HTML y CSS, adaptado a responsive en varias resoluciones
+- HTML y CSS, adaptado a responsive en varias resoluciones.
 
-- Modo claro y oscuro dependiendo de lo que quiera el usuario
+- Modo claro y oscuro dependiendo de lo que quiera el usuario.
 
-- Boton Top para ir hacia la zona superior de la pagina en cualquier momento
+- Boton Top para ir hacia la zona superior de la pagina en cualquier momento.
 
 ## HTML
 
