@@ -56,7 +56,7 @@ El script utiliza la función debounce() para limitar la frecuencia de llamadas 
 
 ## Sección de Busqueda:
 
-El script es una aplicación web que permite a los usuarios realizar búsquedas de películas y ver información detallada sobre ellas. El script utiliza JavaScript y jQuery para manipular el DOM y hacer solicitudes a la API de The Movie Database.
+El script es una aplicación web que permite a los usuarios realizar búsquedas de películas y ver información detallada sobre ellas. El script utiliza JavaScript para manipular el DOM y hacer solicitudes a la API de The Movie Database.
 
 El script define dos funciones, "ocultarElementos" y "ocultarSlider", que se utilizan para ocultar elementos específicos de la página.
 
@@ -76,7 +76,7 @@ Los selectores de eventos: estos selectores se utilizan para detectar las accion
 
 ## Función del Button Top:
 
-En si, implementa un botón de "volver arriba" que aparece en la página cuando el usuario se desplaza hacia abajo y le permite volver a la parte superior de la página con un solo clic. Utiliza la función "scrollFunction" para detectar la posición del desplazamiento del usuario y mostrar u ocultar el botón en consecuencia. También utiliza la función "animate" de jQuery para animar el desplazamiento de la página hacia la parte superior cuando se hace clic en el botón. En resumen, este script mejora la experiencia del usuario al permitirle navegar fácilmente a través de la página.
+En si, implementa un botón de "volver arriba" que aparece en la página cuando el usuario se desplaza hacia abajo y le permite volver a la parte superior de la página con un solo clic. Utiliza la función "scrollFunction" para detectar la posición del desplazamiento del usuario y mostrar u ocultar el botón en consecuencia. 
 
 ## Función del Loader:
 
@@ -104,10 +104,6 @@ El código HTML utiliza varias librerías y frameworks para agregar funcionalida
 scrollreveal.js: es una librería que permite animar elementos en el sitio web al hacer scrolling, es decir, cuando el usuario baja o sube en la página.
 
 font-awesome: es una librería de iconos que proporciona una amplia variedad de iconos vectoriales para utilizar en el sitio web.
-
-jQuery: es una librería de JavaScript que facilita la manipulación del DOM y la realización de llamadas AJAX a servidores.
-
-jQuery UI: es un conjunto de componentes y widgets para jQuery que proporcionan una amplia variedad de funcionalidades interactivas para el sitio web, como por ejemplo, la creación de calendarios, diálogos y menús.
 
 axios: es una librería de JavaScript que permite realizar peticiones HTTP a servidores, por ejemplo, para obtener datos de una API.
 
